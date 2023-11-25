@@ -15,9 +15,6 @@ import java.util.*;
 //User function Template for Java
 
 
-
-
-
 class  Solution
 {
     void shuffleArray(long arr[], int n)
@@ -40,7 +37,6 @@ class  Solution
 	    }
     }
 }
-
 
 
 //{ Driver Code Starts.
