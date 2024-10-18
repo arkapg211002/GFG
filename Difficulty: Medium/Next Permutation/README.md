@@ -1,0 +1,10 @@
+<h2><a href="https://www.geeksforgeeks.org/problems/next-permutation5226/1?page=1&difficulty=Medium&status=unsolved&sortBy=submissions">Next Permutation</a></h2><h3>Difficulty Level : Difficulty: Medium</h3><hr><div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">Implement the next permutation, which rearranges the list of numbers into Lexicographically next greater permutation of the list of numbers. If such an arrangement is not possible, it must be rearranged to the lowest possible order <em>i.e.</em> sorted in ascending order. You are given a list of numbers <strong>arr[ ]</strong>.</span></p>
+<p><strong><span style="font-size: 18px;">Examples:</span></strong></p>
+<pre><span style="font-size: 18px;"><strong>Input:</strong> arr = [1, 2, 3, 6, 5, 4]
+<strong>Output:</strong> [1, 2, 4, 3, 5, 6]
+<strong>Explaination:</strong> The next permutation of the given array is {1, 2, 4, 3, 5, 6}.</span></pre>
+<pre><span style="font-size: 18px;"><strong>Input:</strong> arr = [3, 2, 1]
+<strong>Output:</strong> [1, 2, 3]
+<strong>Explaination:</strong> As arr[] is the last permutation. So, the next permutation is the lowest one.</span></pre>
+<p><span style="font-size: 18px;"><strong>Expected Time Complexity:</strong> O(n)<br><strong>Expected Auxiliary Space:</strong> O(1)</span></p>
+<p><span style="font-size: 18px;"><strong>Constraints:</strong><br>1 ≤ arr.size() ≤ 10<sup>5<br></sup></span><span style="font-size: 18px;">1 ≤ arr[i] ≤ 10<sup>5</sup></span></p></div><p><span style=font-size:18px><strong>Company Tags : </strong><br><code>Infosys</code>&nbsp;<code>Flipkart</code>&nbsp;<code>Amazon</code>&nbsp;<code>Microsoft</code>&nbsp;<code>FactSet</code>&nbsp;<code>Hike</code>&nbsp;<code>MakeMyTrip</code>&nbsp;<code>Google</code>&nbsp;<code>Qualcomm</code>&nbsp;<code>Salesforce</code>&nbsp;<br><p><span style=font-size:18px><strong>Topic Tags : </strong><br><code>Arrays</code>&nbsp;<code>permutation</code>&nbsp;<code>constructive algo</code>&nbsp;<code>Data Structures</code>&nbsp;
