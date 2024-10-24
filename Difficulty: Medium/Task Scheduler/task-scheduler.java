@@ -20,7 +20,9 @@ class GFG {
             Solution obj = new Solution();
             int ans = obj.leastInterval(n, k, a);
             System.out.println(ans);
-        }
+        
+System.out.println("~");
+}
     }
     static class FastReader {
 
@@ -91,20 +93,20 @@ class GFG {
 class Solution {
     static int leastInterval(int N, int K, char tasks[]) {
         // code here
-        int fr[] = new int[26];
-        
-        for(char c : tasks){
-            fr[c - 'A']++;
+        int[] frequencies = new int[26];
+        for(char task : tasks){
+            frequencies[task - 'A']++;
         }
-        Arrays.sort(fr);
+        Arrays.sort(frequencies);
+    
+        int maxFreq = frequencies[25];
+        int idleTime = (maxFreq - 1) * K;
         
-        int maxfr = fr[25];
-        int ideal = (maxfr - 1) * K;
-        
-        for(int i = 24 ; i >= 0 ; i--){
-            ideal -= Math.min(maxfr - 1 , fr[i]);
+        for(int i = 24; i >= 0 && idleTime > 0; i--){
+            idleTime -= Math.min(frequencies[i], maxFreq - 1);
         }
-        return N + Math.max(0 , ideal);
+        
+        idleTime = Math.max(0, idleTime);
+        return tasks.length + idleTime;
     }
 }
-
