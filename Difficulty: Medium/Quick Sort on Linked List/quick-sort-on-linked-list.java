@@ -75,43 +75,46 @@ class Node
 }*/
 // you have to complete this function
 class GfG {
-    public static Node quickSort(Node head) {
-        if (head == null || head.next == null)
-            return head;
-
-        Node[] smaller = new Node[1];
-        Node[] greater = new Node[1];
-
-        partition(head, smaller, greater);
-
-        smaller[0] = quickSort(smaller[0]);
-        greater[0] = quickSort(greater[0]);
-
-        head.next = greater[0];
-        Node temp = smaller[0];
-        while (temp != null && temp.next != null)
-            temp = temp.next;
-
-        if (temp != null)
-            temp.next = head;
-        else
-            smaller[0] = head;
-
-        return smaller[0];
+    private Node split(Node head) {
+        Node slow = head, fast = head, prev = null;
+        
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        if (prev != null) {
+            prev.next = null;
+        }
+        
+        return slow;
     }
 
-    private static void partition(Node pivot, Node[] smaller, Node[] greater) {
-        Node temp = pivot.next;
-        while (temp != null) {
-            Node next = temp.next;
-            if (temp.data <= pivot.data) {
-                temp.next = smaller[0];
-                smaller[0] = temp;
-            } else {
-                temp.next = greater[0];
-                greater[0] = temp;
-            }
-            temp = next;
+    private Node merge(Node left, Node right) {
+        if (left == null) return right;
+        if (right == null) return left;
+
+        if (left.data < right.data) {
+            left.next = merge(left.next, right);
+            return left;
+        } else {
+            right.next = merge(left, right.next);
+            return right;
         }
+    }
+
+    private Node mergeSort(Node head) {
+        if (head == null || head.next == null) return head;
+
+        Node mid = split(head);
+        Node left = mergeSort(head);
+        Node right = mergeSort(mid);
+
+        return merge(left, right);
+    }
+
+    public Node quickSort(Node head) {
+        return mergeSort(head);
     }
 }
