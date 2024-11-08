@@ -1,50 +1,59 @@
 //{ Driver Code Starts
-// Initial Template for Java
+//Initial Template for Java
 
-import java.io.*;
 import java.util.*;
-
-class GFG {
-    public static void main(String args[]) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(in.readLine());
-        while (t-- > 0) {
-            String S = in.readLine();
-
-            Solution ob = new Solution();
-            System.out.println(ob.rank(S));
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            String str = br.readLine().trim();
+            Solution obj = new Solution();
+            long ans = obj.findRank(str);
+            System.out.println(ans);
         
 System.out.println("~");
 }
     }
 }
+
 // } Driver Code Ends
 
 
 
 
-// User function Template for Java
+//User function Template for Java
 
-class Solution {
-    static int rank(String s) {
-        int m = 1000003;
-        
-        int fact[] = new int[26];
-        fact[0] =1;
-        for (int i=1; i<fact.length; i++) {
-            fact[i]  = (fact[i-1] * i) % m;     
-        }
-        
-        int res = 0;
-        for (int i=0; i<s.length(); i++) {
-            int c = 0;
-            for (int j = i+1; j<s.length(); j++) {
-                if (s.charAt(i) == s.charAt(j)) return 0;
-                if (s.charAt(i) > s.charAt(j)) c++;
+class Solution
+{
+    public long findRank(String S)
+    {
+        long[] factorial = factorial(S.length());
+        long answer = 0;
+        for (int i = 0; i < S.length(); i++) {
+            long count = 0;
+            for (int j = i + 1; j < S.length(); j++) {
+                if (S.charAt(j) < S.charAt(i)) {
+                    count++;
+                }
             }
-            res = (res % m + (fact[s.length()-i-1] % m * c % m) % m) % m;
+            answer += (count * factorial[S.length() - 1 - i]);
         }
-        
-        return res+1;
+        return answer + 1;
+    }
+    
+    private long[] factorial(int n) {
+        long[] factorial = new long[Math.max(n, 2)];
+        factorial[0] = factorial[1] = 1l;
+        for (int i = 2; i < n; i++) {
+            factorial[i] = factorial[i - 1] * i;
+        }
+        return factorial;
+        // Code here
     }
 }
