@@ -27,35 +27,29 @@ public class Main {
 // } Driver Code Ends
 
 
-
-
-// User function Template for Java
-
 class Solution {
     public int findMin(int[] arr) {
-        // complete the function here
-        int n = arr.length;
-        int ans=Math.min(arr[0], arr[n-1]);
-        int low=1, high=n-2;
-        while(low<=high){
-            int mid=(low+high)/2;
-            if(arr[mid]<arr[mid-1] && arr[mid]<arr[mid+1]){
-                ans=Math.min(ans, arr[mid]);
-                return ans;
+        int left = 0;
+        int right = arr.length - 1;
+        if (arr[left] < arr[right]) {
+            return arr[left];
+        }
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (mid > 0 && arr[mid] < arr[mid - 1]) {
+                return arr[mid];
             }
-            else if(arr[mid]>arr[mid-1] && arr[mid]>arr[mid+1]){
-                ans=Math.min(ans, arr[mid+1]);
-                return ans;
-            }
-            else if(arr[mid]>arr[mid-1] && arr[mid]<arr[mid+1]){
-                if(arr[mid]>arr[n-1]){
-                    low=mid+1;
-                }
-                else{
-                    high=mid-1;
-                }
+
+            if (arr[mid] >= arr[left] && arr[mid] > arr[right]) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
             }
         }
-        return ans;
+
+        return arr[left];
     }
 }
+
+
