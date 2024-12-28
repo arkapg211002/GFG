@@ -5,59 +5,29 @@ import java.util.*;
 
 
 // } Driver Code Ends
-
-
-import java.util.*;
+// User function Template for Java
 
 class Solution {
     public List<List<Integer>> findTriplets(int[] arr) {
-        Map<Integer, List<Integer>> mp = new HashMap<>();
-        int n = arr.length;
-        List<List<Integer>> ans = new ArrayList<>();
-
-        // Step 1: Store indices of each element in the map
-        for (int i = 0; i < n; i++) {
-            mp.putIfAbsent(arr[i], new ArrayList<>());
-            mp.get(arr[i]).add(i);
-        }
-
-        // Step 2: Iterate through the array to find triplets
-        for (int i = 0; i < n - 2; i++) {
-            for (int j = i + 2; j < n; j++) {
-                int req = -arr[i] - arr[j]; // Calculate required value
-                if (mp.containsKey(req)) {
-                    for (int x : mp.get(req)) {
-                        if (x > i && x < j) { // Ensure i < x < j
-                            ans.add(Arrays.asList(i, x, j));
-                        }
+        // Your code here
+         List<List<Integer>> triplet = new ArrayList<>();
+        for(int i=0; i<arr.length; i++){
+            for(int j=i+1; j<arr.length; j++){
+                for(int k=j+1; k<arr.length; k++){
+                    if(arr[i]+arr[j]+arr[k]==0){
+                        ArrayList<Integer> list = new ArrayList<>();
+                        list.add(i);
+                        list.add(j);
+                        list.add(k);
+                        
+                        triplet.add(list);
                     }
                 }
             }
         }
-
-        return ans;
+        return triplet;
     }
-
-
 }
-
-
-
-
-
-  
-
-
-
-
-    
-
-
-
-
-
- 
-    
 
 
 //{ Driver Code Starts.
