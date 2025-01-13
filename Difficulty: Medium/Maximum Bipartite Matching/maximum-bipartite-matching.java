@@ -9,7 +9,6 @@ class GFG
     public static void main(String[] args) throws IOException
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        PrintWriter out=new PrintWriter(System.out);
         int T = Integer.parseInt(br.readLine().trim());
         while(T-->0)
         {
@@ -24,15 +23,13 @@ class GFG
             }
             Solution obj = new Solution();
             int ans = obj.maximumMatch(G);
-            out.println(ans);
+            System.out.println(ans);
        
-out.println("~");
+System.out.println("~");
 }
-       out.close();
     }
 }
 // } Driver Code Ends
-
 
 
 
@@ -40,41 +37,48 @@ out.println("~");
 
 class Solution
 {
-    public int maximumMatch(int[][] G)
+    public int maximumMatch(int[][] graph)
     {
-        int  M = G.length;
-        int N = G[0].length;
-        
-        int match[] = new int[N];
-        
-        for(int i=0;i<N;i++){
-            match[i] = -1;
-        }
-        int res=0;
-        for(int u=0;u<M;u++){
+        // Code here
+        int maximumMatching =0;
+        int numberOfPerson = graph.length;
+        int numberOfJobs = graph[0].length;
+        int jobAssigments[] = new int [numberOfJobs];
+        Arrays.fill(jobAssigments,-1);
+
+        for(int i=0;i<numberOfPerson;i++){
+            //System.out.println();
             
-            boolean seen [] =new boolean[N];
-        
-            if(bpm(G,u,match,seen,M,N)){
-                res++;
+                if(assignJob(graph,i,jobAssigments,numberOfPerson,numberOfJobs,new boolean[numberOfPerson])){
+                    maximumMatching++;
+                   
+                }
+            
+        }
+        return maximumMatching;
+    }
+    private boolean assignJob(int[][] graph,int person, int[] jobAssigments,int numberOfPerson,int numberOfJobs,boolean visited[]){
+        //System.out.println(person);
+        if(visited[person]) return false;
+        visited[person] = true;
+        for(int j=0;j<numberOfJobs;j++){
+            if(graph[person][j]==1){
+                if(jobAssigments[j]==-1) {
+                    jobAssigments[j] = person;
+                    return true;
+                }
             }
         }
-        return res;
-    }
-    boolean bpm (int [][]G, int u, int []match , boolean[]seen , int m , int n){
-        
-    for(int v =0 ;v<n;v++){
-        if(G[u][v]==1 && !seen[v]){
-            seen[v]=true;
-            
-            if(match[v]<0 || bpm(G,match[v],match,seen,m,n)){
-                match[v]=u;
-                return true;
+
+        for(int j=0;j<numberOfJobs;j++){
+            if(graph[person][j]==1){
+                if(assignJob(graph,jobAssigments[j],jobAssigments,numberOfPerson,numberOfJobs,visited)){
+                    jobAssigments[j] = person;
+                    return true;
+                }
             }
         }
-    }
-        
-        
-     return false;   
+
+        return false;
     }
 }
