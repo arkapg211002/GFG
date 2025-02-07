@@ -75,48 +75,55 @@ class N_ary_Tree{
 
 class Solution{
     public int duplicateSubtreeNaryTree(Node root){
-       // Code here
-       // Map to store the subtree string and its frequency
-        Map<String, Integer> subtreeMap = new HashMap<>();
-
-        // Traverse the tree in postorder and construct the subtree string for each node
-        constructSubtreeString(root, subtreeMap);
-
-        // Count the number of subtrees that have occurred more than once
-        int count = 0;
-        for (int freq : subtreeMap.values()) {
-            if (freq > 1) {
-                count++;
+        // Code here
+        TreeMap<Integer,ArrayList<Node>> h = new TreeMap<>();
+        Queue<Node> q = new LinkedList<>();
+        q.offer(root);
+        ArrayList<Node> ans = new ArrayList<>();
+        while(!q.isEmpty()){
+            Node x=q.poll();
+            
+            if(h.containsKey(x.data)){
+                boolean m=false;
+                for(Node n : h.get(x.data)){
+                    if(check(x,n)){
+                        boolean p=true;
+                        m=true;
+                        for(Node f : ans){
+                            if(check(x,f)){
+                                p=false;
+                                break;
+                            }
+                        }
+                        if(p) ans.add(x);
+                    }
+                }
+                if(!m){
+                    ArrayList<Node> t = h.get(x.data);
+                    t.add(x);
+                    h.put(x.data,t);
+                }
+            }else{
+                ArrayList<Node> t = new ArrayList<>();
+                t.add(x);
+                h.put(x.data,t);
+            }
+            
+            //adding childrens
+            for(Node n : x.children){
+                q.offer(n);
             }
         }
-
-        // Return the count of duplicate subtrees
-        return count;
+        return ans.size();
     }
-
-    private String constructSubtreeString(Node node, Map<String, Integer> subtreeMap) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(node.data).append(":");
-
-        List<String> childSubtrees = new ArrayList<>();
-        for (Node child : node.children) {
-            childSubtrees.add(constructSubtreeString(child, subtreeMap));
+    boolean check(Node r1,Node r2){
+        if(r1==null && r2==null) return true;
+        if(r1==null || r2==null || r1.children.size()!=r2.children.size() || r1.data!=r2.data) return false;
+        boolean x = true;
+        for(int i=0;i<r1.children.size();i++){
+            x = x&&check(r1.children.get(i),r2.children.get(i));
         }
-
-        // Sort the child subtree strings in lexicographic order
-        Collections.sort(childSubtrees);
-
-        // Append the sorted child subtree strings to the parent subtree string
-        for (String childSubtree : childSubtrees) {
-            sb.append(childSubtree).append(",");
-        }
-
-        // Store the frequency of the subtree string in the map
-        String subtreeString = sb.toString();
-        subtreeMap.put(subtreeString, subtreeMap.getOrDefault(subtreeString, 0) + 1);
-
-        // Return the subtree string of the current node
-        return subtreeString;
+        return x;
     }
     
 }
